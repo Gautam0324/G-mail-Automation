@@ -27,8 +27,7 @@ def type_with_delay(element, text):
         element.type(char)
         time.sleep(random.uniform(0.001, 0.002))  # Random delay between keystrokes
 
-@browser(tiny_profile=True, 
-  profile=GOOGLE_EMAIL)
+@browser()
 
 # @browser(tiny_profile=True, 
 #     profile=GOOGLE_EMAIL)
