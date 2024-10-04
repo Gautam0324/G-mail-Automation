@@ -1,0 +1,104 @@
+import time
+import random
+import pyautogui
+from botasaurus.browser import browser, Driver, Wait
+from selenium.webdriver.common.keys import Keys
+
+
+# Define the Google credentials
+GOOGLE_EMAIL = "saatheasty@gmail.com"
+GOOGLE_PASSWORD = "Asoei@10202"
+
+#define Sender EMAIL 
+SENDER_EMAIL = "taniksaer@gmail.com"
+
+# Subject 
+Subject = "Hi this is a first email by automation "
+
+#Message body
+Message = "Good evening Amit Sir" 
+
+ # Function to simulate typing with a delay
+def type_with_delay(element, text):
+    for char in text:
+        element.type(char)
+        time.sleep(random.uniform(0.1, 0.3))  # Random delay between keystrokes
+def press_tab(delay=1):
+    # driver.execute_script("document.querySelector('input[type=\"text\"]').focus();")
+    time.sleep(delay)  # Wait for the specified delay
+    pyautogui.press('tab')
+    
+
+
+@browser()
+def google_login_task(driver: Driver, data):
+    # Step 1: Navigate to Google Sign-In page
+    driver.get("https://mail.google.com/mail/u/0/#inbox")
+
+    # Step 2: Enter the email
+    email_input = driver.wait_for_element("input[type='email']", wait=Wait.LONG)
+    type_with_delay(email_input, GOOGLE_EMAIL)
+    driver.select("#identifierNext").click()
+
+    # Step 3: Wait for the password field and enter the password
+    time.sleep(2)  # Short sleep for password input to appear
+    password_input = driver.wait_for_element("input[type='password']", wait=Wait.LONG)
+    type_with_delay(password_input, GOOGLE_PASSWORD)
+    driver.select("#passwordNext").click()
+
+    # Step 4: Wait for login to complete (adjust timing as needed)
+    time.sleep(10)
+
+    # Step 5: Handle any "Not now" or post-login confirmation dialogs
+    try:
+        not_now_button = driver.get_element_with_exact_text("Not now", wait=Wait.LONG)
+        not_now_button.click()
+    except Exception as e:
+        print("Not now button not found, proceeding anyway...")
+
+    # Step 6: Use the keyboard shortcut to compose a new email (press 'C')
+    time.sleep(0.1)  # Ensure that the inbox is fully loaded
+
+    try:
+        compose_button = driver.get_element_with_exact_text("Compose", wait=Wait.LONG)
+        compose_button.click()
+    except Exception as e:
+        print("Not now button not found, proceeding anyway...")
+
+    # To click to type sender mail id 
+        Recipients_button = driver.get_element_with_exact_text("Recipients", wait=Wait.LONG)
+        Recipients_button.click()
+
+    # To sender mail id 
+    sender_input = driver.wait_for_element("input[type='text']", wait=Wait.LONG)
+    type_with_delay(sender_input, SENDER_EMAIL)
+    # driver.select("#identifierNext").click()
+
+    # Simulate pressing the Tab key after typing the email
+    press_tab(2)
+
+     # To click to type sender mail id 
+    Subject = driver.get_element_with_exact_text("Subject", wait=Wait.LONG)
+    Subject.click()
+    
+    Subject_line = driver.wait_for_element("input[name='subjectbox']", wait=Wait.LONG)
+    type_with_delay(Subject_line, Subject)
+    # Step 7: Wait and confirm the Compose window is open
+    time.sleep(5)
+    print("Compose window opened successfully using the shortcut.")
+
+    time.sleep(1)
+    Message_body = driver.wait_for_element("input[role='textbox']", wait=Wait.LONG)
+    type_with_delay(Message_body, Message)
+
+
+# Execute the login task
+google_login_task(data=None)
+
+# Creating a function for Tab key after email typing is completed 
+
+
+
+# Example usage
+press_tab(2)  # Will press the 'Tab' key after 2 seconds
+

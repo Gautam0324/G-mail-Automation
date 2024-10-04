@@ -1,0 +1,39 @@
+Traceback (most recent call last):
+  File "C:\Users\naugh\Desktop\auto mail\.venv\Lib\site-packages\botasaurus_driver\core\connection.py", line 59, in wait_till_response_arrives
+    message = q.get(timeout=timeout)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\naugh\AppData\Local\Programs\Python\Python312\Lib\queue.py", line 179, in get
+    raise Empty
+_queue.Empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\naugh\Desktop\auto mail\.venv\Lib\site-packages\botasaurus\browser_decorator.py", line 179, in run_task
+    result = func(driver, data)
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\naugh\Desktop\auto mail\mail-2.py", line 81, in google_login_task
+    subject_input = driver.wait_for_element("input[name='subjectbox']", wait=Wait.LONG)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\naugh\Desktop\auto mail\mail-2.py", line 27, in type_with_delay
+    element.type(char)
+  File "C:\Users\naugh\Desktop\auto mail\.venv\Lib\site-packages\botasaurus_driver\driver.py", line 287, in type
+    self._tab._run(self._elem.send_keys(text))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\naugh\Desktop\auto mail\.venv\Lib\site-packages\botasaurus_driver\core\element.py", line 706, in send_keys
+    self.raise_if_disconnected()
+  File "C:\Users\naugh\Desktop\auto mail\.venv\Lib\site-packages\botasaurus_driver\core\element.py", line 677, in raise_if_disconnected
+    response = self.is_disconnected()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\naugh\Desktop\auto mail\.venv\Lib\site-packages\botasaurus_driver\core\element.py", line 683, in is_disconnected
+    return self.apply('(el)=>!el.isConnected')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\naugh\Desktop\auto mail\.venv\Lib\site-packages\botasaurus_driver\core\element.py", line 553, in apply
+    self._remote_object = self._tab.send(
+                          ^^^^^^^^^^^^^^^
+  File "C:\Users\naugh\Desktop\auto mail\.venv\Lib\site-packages\botasaurus_driver\core\connection.py", line 258, in send
+    result = wait_till_response_arrives(self.queue, tx_id , MAX_WAIT)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\naugh\Desktop\auto mail\.venv\Lib\site-packages\botasaurus_driver\core\connection.py", line 63, in wait_till_response_arrives
+    raise TimeoutError("Response not received")
+TimeoutError: Response not received

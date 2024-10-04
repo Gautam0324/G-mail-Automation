@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\naugh\AppData\Local\Programs\Python\Python312\Lib\site-packages\botasaurus\browser_decorator.py", line 179, in run_task
+    result = func(driver, data)
+             ^^^^^^^^^^^^^^^^^^
+  File "c:\Users\naugh\Desktop\auto mail\gmail_backup.py", line 79, in google_login_task
+    pyautogui.press('tab')
+  File "C:\Users\naugh\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyautogui\__init__.py", line 593, in wrapper
+    failSafeCheck()
+  File "C:\Users\naugh\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyautogui\__init__.py", line 1734, in failSafeCheck
+    raise FailSafeException(
+pyautogui.FailSafeException: PyAutoGUI fail-safe triggered from mouse moving to a corner of the screen. To disable this fail-safe, set pyautogui.FAILSAFE to False. DISABLING FAIL-SAFE IS NOT RECOMMENDED.
