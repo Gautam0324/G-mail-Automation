@@ -8,11 +8,16 @@ from playwright.sync_api import sync_playwright
 
 
 # Define the Google credentials
-GOOGLE_EMAIL = "saatheasty@gmail.com"
-GOOGLE_PASSWORD = "Asoei@10202"
+# Replace with mail you want to Login 
+GOOGLE_EMAIL = "XYZ@gmail.com"
+#Replace with your Password 
+GOOGLE_PASSWORD = "XYZXX"
 
 #define Sender EMAIL 
-SENDER_EMAIL = "saatheasty@gmail.com"
+
+# Replace with mail you want to Send 
+
+SENDER_EMAIL = "XYZ@gmail.com"
 
 # Subject 
 SUBJECT = "Gmail Automation Done "
