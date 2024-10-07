@@ -1,18 +1,25 @@
 import time
 import random 
 import pyautogui  
-from botasaurus.browser import browser, Driver, Wait
+from botasaurus.browser import browser, Driver, Wait 
 from selenium.webdriver.common.keys import Keys
 from playwright.sync_api import sync_playwright
+import subprocess
+import requests
 
 
 
 # Define the Google credentials
-GOOGLE_EMAIL = "saatheasty@gmail.com"
-GOOGLE_PASSWORD = "Asoei@10202"
+# Replace with mail you want to Login 
+GOOGLE_EMAIL = "XYZ@gmail.com"
+#Replace with your Password 
+GOOGLE_PASSWORD = "XYZXX"
 
 #define Sender EMAIL 
-SENDER_EMAIL = "saatheasty@gmail.com"
+
+# Replace with mail you want to Send 
+
+SENDER_EMAIL = "XYZ@gmail.com"
 
 # Subject 
 SUBJECT = "Gmail Automation Done "
@@ -20,6 +27,73 @@ SUBJECT = "Gmail Automation Done "
 #Message body
 BODY =  ""
 
+# Function to run ADB commands
+def run_adb_command(command):
+
+    try:
+        result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        return result.stdout.decode('utf-8')
+    except subprocess.CalledProcessError as e:
+        print(f"Error running ADB command: {e.stderr.decode('utf-8')}")
+        return None
+
+
+def get_current_ip():
+    try:
+        response = requests.get('https://api.ipify.org?format=json')
+        response.raise_for_status()
+        return response.json().get('ip')
+    except requests.RequestException as e:
+        print(f"Error fetching current IP: {e}")
+        return None
+    
+# Function to change the IP address by toggling flight mode
+def change_ip():
+    try:
+        print('Enabling flight mode...')
+        run_adb_command('adb shell cmd connectivity airplane-mode enable')
+        print('Waiting for 10 seconds...')
+        time.sleep(10)
+        
+        print('Disabling flight mode...')
+        run_adb_command('adb shell cmd connectivity airplane-mode disable')
+        print('Waiting for 20 seconds...')
+        time.sleep(20)  # Increase this wait time to allow the network to stabilize
+        
+        print('Waiting for IP to change...')
+        time.sleep(10)
+
+        
+        new_ip = get_current_ip()
+        
+        if new_ip:
+            print(f"New IP: {new_ip}")
+        else:
+            print("New IP not found!")
+
+        return new_ip
+    except Exception as error:
+        print('Error during IP change:', error)
+        return None
+
+def is_ip_used(ip, filename='yahoo.txt'):
+    
+    try:
+        # Open the file in read mode
+        with open(filename, 'r') as file:
+            used_ips = file.read().splitlines()
+            
+            # Loop through each line in the file
+            for entry in used_ips:
+                # Split the IP and the date (if present) and compare only the IP part
+                stored_ip = entry.split(' - ')[0].strip()  # Extract the IP part and remove extra spaces
+                if stored_ip == ip:
+                    return True  # IP is already used
+            return False  # IP not found in the file
+    except FileNotFoundError:
+        # If the file doesn't exist, consider that no IP has been used yet
+        return False
+    
 
  # Function to simulate typing with a delay
 def type_with_delay(element, text):
@@ -34,6 +108,10 @@ def type_with_delay(element, text):
 def google_login_task(driver: Driver, data):
     # Step 1: Navigate to Google Sign-In page
     driver.get("https://mail.google.com/mail/u/0/#inbox")
+    new_ip = change_ip()
+    if new_ip and not is_ip_used(new_ip):
+     time.sleep(2)  # Ensure that the inbox is fully loaded
+            
 
     # Step 2: Enter the email
     email_input = driver.wait_for_element("input[type='email']", wait=Wait.LONG)
