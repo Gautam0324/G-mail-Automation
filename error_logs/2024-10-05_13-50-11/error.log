@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\naugh\Desktop\auto mail\.venv\Lib\site-packages\botasaurus\browser_decorator.py", line 179, in run_task
+    result = func(driver, data)
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\naugh\Desktop\auto mail\gmail_main.py", line 33, in google_login_task
+    type_with_delay(email_input, google_account["email"])
+                                 ~~~~~~~~~~~~~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable

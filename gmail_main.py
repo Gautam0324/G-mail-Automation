@@ -1,7 +1,7 @@
 import time
 import random 
 import pyautogui  
-from botasaurus.browser import browser, Driver, Wait
+from botasaurus.browser import browser, Driver, Wait 
 from selenium.webdriver.common.keys import Keys
 from playwright.sync_api import sync_playwright
 
