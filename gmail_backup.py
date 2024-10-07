@@ -183,7 +183,7 @@ def google_login_task(driver: Driver, data):
     # To click to type body
     body_input = driver.wait_for_element("div[role='textbox']", wait=Wait.LONG)
     # Paste the copied content using Ctrl + V
-    pyautogui.hotkey('ctrl', 'v')
+    pyautogui.hotkey('ctrl',  'v')
 
     # To click the  send button
     
